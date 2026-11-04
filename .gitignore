@@ -43,3 +43,12 @@ __pycache__/
 # Generated operational reports (not application source)
 docs/**/*.json
 !docs/apresentacao_produto_spec.json
+
+# Full database backups: publish encrypted artifacts only
+*.dump
+private-key.json
+!database/backups/
+database/backups/*
+!database/backups/README.md
+!database/backups/*.dump.aes
+!database/backups/*.dump.aes.json

@@ -1,5 +1,7 @@
 # Estrutura da base de dados local
 
+**A cópia integral com todos os dados e contas está agora disponível em [backups/](backups/README.md), num arquivo cifrado.** O `schema.sql` abaixo continua a ser apenas a estrutura, útil separadamente.
+
 Snapshot PostgreSQL de samsys_qualidade, exportado em 2026-11-04.
 
 - 103 tabelas e 61 funções; inclui índices, constraints, triggers e políticas presentes na exportação.

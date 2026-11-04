@@ -1,0 +1,19 @@
+{
+  "format": "QUALIDADE_BACKUP_AESGCM_V1",
+  "exportedAt": "2026-11-04T16:40:08.029Z",
+  "database": "samsys_qualidade",
+  "file": "qualidade-2026-11-04-cd75b9b4.dump.aes",
+  "encryptedBytes": 1219164,
+  "encryptedSha256": "d8bce193f9492a2a16ed3fc45bf305d8f57566a6248d3f2e7e8af466cb8836b2",
+  "archiveFormat": "PostgreSQL custom (pg_dump -Fc)",
+  "tableDataEntries": 103,
+  "totalRows": 3104,
+  "authUserRows": 24,
+  "includesAllDatabaseRows": true,
+  "includesStoredAccountCredentials": true,
+  "excludedTables": [],
+  "encryption": "AES-256-GCM; random 256-bit key; 96-bit nonce; 128-bit authentication tag",
+  "validatedCatalogue": true,
+  "validatedAllDataReadable": true,
+  "validatedEncryptionRoundtrip": true
+}
