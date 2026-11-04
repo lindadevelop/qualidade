@@ -1,0 +1,238 @@
+{
+  "title": "SAMSYS|Qualidade — Apresentação do Produto",
+  "author": "SAMSYS",
+  "subject": "Plataforma de Gestão da Qualidade",
+  "keywords": "SAMSYS, Qualidade, NC, OM, LifeCycle RH, IA",
+  "fontSize": 10.5,
+  "theme": {
+    "heading_color": "#1a1a2e",
+    "subheading_color": "#2f2f6b",
+    "body_color": "#2d2d2d",
+    "table_header_bg": "#2f2f6b",
+    "table_header_text": "#ffffff",
+    "table_row_alt": "#f2f2fa"
+  },
+  "elements": [
+    {
+      "type": "heading",
+      "text": "SAMSYS|Qualidade",
+      "size": 26
+    },
+    {
+      "type": "paragraph",
+      "text": "Plataforma digital completa para a gestão da Qualidade nas organizações: não conformidades, oportunidades de melhoria, ações corretivas, eficácia, acompanhamento do ciclo de vida dos colaboradores e um assistente de inteligência artificial. Um único sistema integrado para transformar registos de qualidade em decisões e melhoria contínua.",
+      "bold": false
+    },
+    {
+      "type": "heading",
+      "text": "1 · Visão geral",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "O SAMSYS|Qualidade nasceu para responder a um desafio comum nas organizações: os dados de qualidade existem, mas estão dispersos em folhas de cálculo, caixas de e-mail e registos em papel. Esta plataforma centraliza tudo num só lugar, com fluxos de trabalho automáticos e dados fiáveis, sempre prontos a consultar.",
+      "bold": false
+    },
+    {
+      "type": "paragraph",
+      "text": "Tudo é acessível a partir de um único painel de controlo, com visual moderno, claro e fácil de usar. Cada utilizador vê exatamente o que lhe diz respeito, e a administração controla acessos e permissões com total segurança.",
+      "bold": false
+    },
+
+    {
+      "type": "heading",
+      "text": "2 · Painel de controlo (Dashboard)",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "O ponto de partida de cada utilizador: uma visão de 360º do estado real da Qualidade, em tempo real.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Indicadores-chave (KPIs)", "Ocorrências abertas, em curso, a aguardar eficácia e encerradas, de um relance."],
+        ["Evolução temporal", "Gráfico mensal de NC (não conformidades), OM (oportunidades de melhoria) e encerradas."],
+        ["Estado geral", "Distribuição visual das ocorrências por estado, com cores claras."],
+        ["Ocorrências por área", "Top de áreas com mais registos; clique para ver todas em ecrã completo."],
+        ["Ocorrências por origem", "De onde vêm os registos: auditorias, reclamações, revisões da gestão, etc."],
+        ["Ações por responsável", "Carga de trabalho de cada pessoa: abertas, atrasadas e concluídas."],
+        ["Ações urgentes", "Lista pronta de ações que precisam de atenção, com nível de atraso."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "3 · Gestão de ocorrências (NC e OM)",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "O coração do sistema. Registar, acompanhar e encerrar não conformidades e oportunidades de melhoria, com todo o histórico em cada ficha.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Registo de ocorrências", "Criação guiada de NC e OM, com os dados essenciais preenchidos passo a passo."],
+        ["Ficha completa", "Cada ocorrência tem descrição, área, origem, responsável, ações, anexos e histórico."],
+        ["Máquina de estados", "Fluxo oficial: aberta → em curso → a aguardar eficácia → encerrada. Sem atalhos que quebrem o processo."],
+        ["Ações associadas", "Planos de ação ligados a cada ocorrência, com responsável e prazo."],
+        ["Eficácia controlada", "Uma ocorrência só encerra quando a eficácia da ação é validada — protege a qualidade do processo."],
+        ["Pesquisa e filtros", "Filtrar por estado, área, origem, responsável e período; encontrar qualquer registo em segundos."],
+        ["Grelha de listagem", "Lista clara e paginada, com cores por estado, pronta a usar no dia a dia."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "4 · Gestão de ações",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "As ações são o motor da melhoria. Esta área garante que nenhuma ação fica esquecida.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Lista de ações", "Todas as ações corretivas, com estado, responsável e prazo."],
+        ["Alertas de atraso", "Sinalização clara de ações em atraso, para intervenção rápida."],
+        ["Validação de eficácia", "Fluxo para confirmar se a ação resolveu o problema, com registo de quem validou e quando."],
+        ["Responsabilização", "Cada ação tem dono; a carga de trabalho por pessoa é visível em todo o sistema."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "5 · LifeCycle RH",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Acompanha o colaborador desde o primeiro contacto até ao dia em que sai da organização: recrutamento, admissão, integração e desligamento, com lista de tarefas e prazos automáticos.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Fila única de candidaturas", "Toda a gente que chega à organização num único sítio, com estado e antigüidade visíveis."],
+        ["Triagem e entrevistas", "Avançar candidatos etapa a etapa, com decisão de seleção registada."],
+        ["Deteção de duplicados", "Alerta automático se candidatar alguém que já consta no sistema."],
+        ["Admissão e integração", "Lista de tarefas pronta (A01–A20) com prazos, setores e gate de entrada para o 1.º dia."],
+        ["Protocolo de estágio", "Percurso específico para estagiários, com as tarefas próprias."],
+        ["Offboarding", "Checklist de saída por área e encerramento do processo de forma ordenada."],
+        ["Pool de talento", "Base pesquisável de candidatos, por nome, função ou equipa."],
+        ["Painel de análise", "KPIs de recursos humanos, distribuição por estado e candidaturas por vaga."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "6 · Eficácia das ações",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Uma área dedicada ao momento em que a qualidade é comprovada: validar se as ações tomadas foram eficazes.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Lista para validação", "Ações que aguardam confirmação de eficácia, prontas a analisar."],
+        ["Agrupamento flexível", "Organizar por área, estado ou responsável para focar a análise."],
+        ["Registo de decisão", "Só fecha quem tem autoridade e validação — nada é encerrado à pressa."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "7 · Relatórios e Revisão pela Gestão",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Transformar dados em evidência para a gestão. Capaz de sustentar as auditorias e a revisão periódica do sistema de qualidade.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Relatórios de indicadores", "Indicadores por área e por tipo, para acompanhar a saúde da qualidade."],
+        ["Revisão pela Gestão", "Âmbito preparado para a direção: evidência, decisões e plano de melhoria."],
+        ["Saída documental", "Dados prontos para exportar e integrar na documentação do sistema de qualidade."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "8 · Assistente de Inteligência Artificial",
+      "size": 16
+    },
+    {
+      "type": "paragraph",
+      "text": "Pergunte na sua língua, como se estivesse a conversar com um colega experiente. O assistente consulta os dados reais do sistema e responde com factos — nunca inventa números.",
+      "bold": false
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Conversa em português", "Pergunte 'quantas ocorrências estão abertas?' e receba a resposta exata."],
+        ["Dados reais", "A IA consulta a base de dados com as suas permissões e devolve valores verdadeiros."],
+        ["Qualidade e RH", "Responde sobre ocorrências, ações, candidaturas, vagas e pool de talento."],
+        ["Canais integrados", "Disponível na aplicação, Telegram, WhatsApp, Microsoft Teams e Slack."],
+        ["Papel sempre assistivo", "A IA informa e propõe; as decisões e as escritas continuam sob controlo humano."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "9 · Administração e segurança",
+      "size": 16
+    },
+    {
+      "type": "table",
+      "header": ["Funcionalidade", "O que faz"],
+      "rows": [
+        ["Perfis e permissões", "Utilizador, gestão e administrador; cada um vê só o que lhe compete."],
+        ["Gestão de utilizadores", "Contas, funções e controlo de acesso centralizados."],
+        ["Canais de IA", "Associar contas de Telegram, WhatsApp, Teams e Slack com segurança."],
+        ["Segurança de dados", "Regras de confidencialidade ativas; a IA nunca revela dados de terceiros."]
+      ]
+    },
+
+    {
+      "type": "heading",
+      "text": "10 · Vantagens para a organização",
+      "size": 16
+    },
+    {
+      "type": "table",
+      "header": ["Benefício", "Impacto"],
+      "rows": [
+        ["Menos folhas de cálculo", "Tudo num só sistema, sempre atualizado e sempre acessível."],
+        ["Processos controlados", "Regras de fluxo impedem encerramentos incorretos e dados inconsistentes."],
+        ["Menos atrasos", "Alertas automáticos para ações e pendências que precisam de atenção."],
+        ["Decisões com dados", "As métricas de qualidade e RH disponíveis em tempo real para a gestão."],
+        ["IA ao serviço", "Respostas imediatas e fiáveis sobre o estado real da organização."],
+        ["Pronto para auditorias", "Registo e evidência documental completos para sustentar o sistema de qualidade."]
+      ]
+    },
+
+    {
+      "type": "paragraph",
+      "text": "O SAMSYS|Qualidade é a plataforma que junta qualidade, recursos humanos e inteligência artificial num só sistema — simples de usar, fiável e feito para a melhoria contínua.",
+      "bold": true
+    }
+  ]
+}

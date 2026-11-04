@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "auth-server.js",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "test:database": "node tests/strategy-database.cjs",
+    "test:platform-database": "node tests/platform-database.cjs",
+    "test:quality-database": "node tests/quality-v25-database.cjs",
+    "check": "node --check quality-baseline.js && node --check quality-outbox.js && node --check quality-backup.js && node --check auth-server.js && node --check quality-operational.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/socket-mode": "^3.0.1",
+    "@slack/web-api": "^8.1.1",
+    "dotenv": "^17.4.2",
+    "nodemailer": "^10.0.13",
+    "pg": "^8.23.0"
+  }
+}

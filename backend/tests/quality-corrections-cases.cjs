@@ -1,0 +1,31 @@
+const assert=require('node:assert/strict');
+exports.run=async({db,call,org,other,area,origin,actors,pass,fresh,setActor})=>{
+ const standard=await call('catalog_save',null,{kind:'standard',name:'ISO 9001:2015'});
+ const a=await call('audit_save',null,{kind:'EXTERNAL',title:'Âmbito relacional',year:2026,auditor_entity:'QA',area_ids:[area],standard_ids:[standard.id],site_names:['Sede'],start_date:'2026-09-22',end_date:'2026-09-24'});
+ const base={type:'NC',classification:'NC Menor',audit_id:a.id,description:'Texto exato do auditor',responsible_user_id:actors.owner.id,human_confirmed:false};
+ const nc=await call('occurrence_create',null,base);
+ assert.equal(nc.area_id,area);assert.equal(nc.standard,null);assert.equal(nc.site,null);assert(nc.standard_scope_id&&nc.site_scope_id);assert.notEqual(nc.origin_id,origin);pass('CTX-01 herança única sem cópia e sem confirmação');
+ const renamed=await call('catalog_save',standard.id,{kind:'standard',name:'ISO 9001:2015 - Sistema de Gestão da Qualidade'});assert.equal(renamed.id,standard.id);
+ const direct=await call('occurrence_create',null,{type:'OM',description:'Referencial direto',area_id:area,origin_id:origin,standard_id:standard.id});assert.equal(direct.standard_id,standard.id);assert.equal(direct.standard,null);pass('REF-03 ocorrência direta também referencia o catálogo');
+ assert.equal((await db.query('select standard_id from quality_audit_scope where id=$1',[nc.standard_scope_id])).rows[0].standard_id,standard.id);pass('REF-01 edição mantém relações');
+ await call('catalog_save',standard.id,{kind:'standard',name:'ISO 9001:2026'},400);const next=await call('catalog_save',null,{kind:'standard',name:'ISO 9001:2026'});assert.notEqual(next.id,standard.id);pass('REF-02 nova versão preserva anterior');
+ const area2=await call('area_save',null,{name:'Segunda área'}),area3=await call('area_save',null,{name:'Fora do âmbito'});
+ await call('audit_save',a.id,{...await fresh('quality_audits',a.id),expected_version:(await fresh('quality_audits',a.id)).version,area_ids:[area,area2.id],standard_ids:[standard.id,next.id],site_names:['Sede','Porto']});
+ await call('occurrence_create',null,base,400);await call('occurrence_create',null,{...base,area_id:area3.id},400);
+ const scope=(await db.query('select * from quality_audit_scope where audit_id=$1',[a.id])).rows;
+ const multi=await call('occurrence_create',null,{...base,area_id:area2.id,standard_scope_id:scope.find(s=>s.standard_id===next.id).id,site_scope_id:scope.find(s=>s.site==='Porto').id});assert.equal(multi.area_id,area2.id);pass('CTX-02 seleção múltipla restrita ao âmbito');
+ const empty=await call('audit_save',null,{kind:'INTERNAL',title:'Sem âmbito',year:2026});const denied=await call('occurrence_create',null,{...base,audit_id:empty.id},400);assert.match(denied.msg,/não tem áreas/);pass('CTX-03 âmbito vazio explicado');
+ const changed=await call('area_save',area2.id,{name:'Área corrigida',active:false});assert.equal(changed.id,area2.id);assert.equal((await fresh('quality_occurrences',multi.id)).area_id,area2.id);
+ await call('occurrence_create',null,{type:'OM',description:'Nova',area_id:area2.id,origin_id:origin},400);await call('area_save',area2.id,{name:changed.name,active:true});pass('AREA-01 editar desativar reativar mantém histórico');
+ await db.query('SAVEPOINT delete_area');await assert.rejects(db.query('delete from quality_areas where id=$1',[area2.id]),/já foi utilizado/);await db.query('ROLLBACK TO delete_area');pass('AREA-02 eliminação física bloqueada');
+ await call('occurrence_create',null,{type:'OM',description:'Direta',area_id:area,origin_id:origin,human_confirmed:false});pass('CTX-04 origem mantida no registo direto');
+ await call('catalog_save',next.id,{kind:'standard',name:next.name,active:false});await call('occurrence_create',null,{type:'OM',description:'Inativo',area_id:area,origin_id:origin,standard_id:next.id},400);assert.equal((await fresh('quality_occurrences',multi.id)).standard_scope_id,multi.standard_scope_id);pass('REF-04 inativo excluído das novas atribuições e preservado no histórico');
+ for(const date of ['2026-02-30','20260-01-01','2026-13-01','2026-1-1','texto'])await call('audit_save',null,{kind:'INTERNAL',title:'Data inválida',year:2026,start_date:date},400);
+ await call('audit_save',null,{kind:'INTERNAL',title:'Intervalo inválido',year:2026,start_date:'2026-10-03',end_date:'2026-10-02'},400);pass('DATE-01 datas impossíveis incompletas e intervalo rejeitados');
+ await db.query('SAVEPOINT bad_date');await assert.rejects(db.query("update quality_audits set start_date='20260-01-01',end_date=null where id=$1",[a.id]),/check constraint/);await db.query('ROLLBACK TO bad_date');pass('DATE-02 API direta não contorna limite de quatro dígitos');
+ await call('occurrence_create',null,{...base,audit_id:null,area_id:area,origin_id:origin,responsible_user_id:actors.approver.id},400);await call('occurrence_create',null,{...base,audit_id:null,area_id:area,origin_id:origin,responsible_user_id:actors.other.id},400);
+ await db.query('update profiles set active=false where id=$1',[actors.owner.id]);await call('occurrence_create',null,{...base,audit_id:null,area_id:area,origin_id:origin},400);assert.equal((await fresh('quality_occurrences',nc.id)).responsible_user_id,actors.owner.id);await db.query('update profiles set active=true,module_access=$2 where id=$1',[actors.owner.id,{quality:false,strategy:false,lifecycle:false}]);await call('occurrence_create',null,{...base,audit_id:null,area_id:area,origin_id:origin},400);await db.query('update profiles set module_access=$2 where id=$1',[actors.owner.id,{quality:true,strategy:false,lifecycle:false}]);pass('USER-01 consulta inativo outro tenant e sem módulo não atribuíveis');
+ setActor(actors.owner);await call('area_save',area.id,{name:'Não permitido'},403);setActor(actors.quality);pass('AREA-03 gestão protegida no servidor');
+ assert((await db.query("select 1 from audit_log where entity_type='quality_areas' and entity_id=$1 and old_data->>'name' is not null and new_data->>'name' is not null and user_id=$2",[area2.id,actors.quality.id])).rowCount);pass('AUDIT-01 edição auditada com autor anterior e novo');
+};
+

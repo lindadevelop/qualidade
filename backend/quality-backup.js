@@ -1,0 +1,11 @@
+const fs=require('node:fs/promises'),path=require('node:path'),{spawn}=require('node:child_process');
+function run(executable,args,env){return new Promise((resolve,reject)=>{const p=spawn(executable,args,{env,windowsHide:true,stdio:'ignore'});p.on('error',reject);p.on('exit',code=>code===0?resolve():reject(new Error('Backup PostgreSQL falhou.')))})}
+async function backup(config,{root=path.resolve(__dirname,'..'),destination=path.join(root,'backups','automatic')}={}){
+ const stamp=new Date().toISOString().replace(/[:.]/g,'-'),target=path.join(destination,stamp);await fs.mkdir(target,{recursive:true});
+ const env={...process.env,PGPASSWORD:config.password};await run(path.join(root,'pgportable','pgsql','bin','pg_dump.exe'),['-h',config.host,'-p',String(config.port),'-U',config.user,'-d',config.database,'-Fc','-f',path.join(target,'database.dump')],env);
+ await run(path.join(root,'pgportable','pgsql','bin','pg_restore.exe'),['--list',path.join(target,'database.dump')],env);
+ for(const folder of ['uploads','quality-evidence','file-access']){const source=path.join(root,'backend','data',folder);try{await fs.access(source);await fs.cp(source,path.join(target,folder),{recursive:true,errorOnExist:true})}catch(e){if(e.code!=='ENOENT')throw e}}
+ await fs.writeFile(path.join(target,'manifest.json'),JSON.stringify({created_at:new Date().toISOString(),database:config.database,format:'pg_dump custom',files:['uploads','quality-evidence','file-access'],retention:'No automatic deletion; organization defines retention.'},null,2));await fs.writeFile(path.join(destination,'last-success.json'),JSON.stringify({at:new Date().toISOString(),target}));return target;
+}
+function startBackups(config){if(process.env.QUALITY_BACKUP_ENABLED==='false')return null;let busy=false;const destination=process.env.QUALITY_BACKUP_DIR||path.resolve(__dirname,'../backups/automatic');const tick=async()=>{if(busy)return;busy=true;try{let last=null;try{last=JSON.parse(await fs.readFile(path.join(destination,'last-success.json'),'utf8'))}catch{}if(!last||Date.now()-new Date(last.at).getTime()>86400000)await backup(config,{destination})}catch{console.error('[backup] Backup falhou. Verificar armazenamento e configuração.')}finally{busy=false}};const timer=setInterval(tick,3600000);timer.unref();void tick();return timer}
+module.exports={backup,startBackups};

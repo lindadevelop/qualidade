@@ -1,0 +1,7 @@
+import {supabase} from '@/lib/supabase'
+import {API_BASE} from '@/lib/api-base'
+export async function qualityRequest(path:string,body?:unknown){const {data:{session}}=await supabase.auth.getSession();if(!session)throw new Error('Inicia sessão novamente.');const r=await fetch(`${API_BASE}/auth/v1/quality/${path}`,{method:body?'POST':'GET',headers:{Authorization:`Bearer ${session.access_token}`,'Content-Type':'application/json','x-organization-id':localStorage.getItem('samsys-qualidade:active-organization-id')||''},body:body?JSON.stringify(body):undefined});if(!r.ok){const error=await r.json();throw new Error(error.msg||'Não foi possível concluir.')}return path.startsWith('evidence/')?r.blob():r.json()}
+export const qualityWorkspace=()=>qualityRequest('workspace')
+export const qualityCommand=(operation:string,id:string|null,payload:Record<string,unknown>)=>qualityRequest('command',{operation,id,payload:{...payload,human_confirmed:true}})
+export async function downloadEvidence(e:any){const blob=await qualityRequest('evidence/'+e.id);const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=e.file_name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+export function exportQuality(data:any){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`qualidade-${new Date().toISOString().slice(0,10)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}

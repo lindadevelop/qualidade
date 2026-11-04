@@ -1,0 +1,52 @@
+[
+  {
+    "id": "inter",
+    "source": "https://github.com/google/fonts/blob/main/ofl/inter/Inter[opsz,wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "roboto",
+    "source": "https://github.com/google/fonts/blob/main/ofl/roboto/Roboto[wdth,wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "opensans",
+    "source": "https://github.com/google/fonts/blob/main/ofl/opensans/OpenSans[wdth,wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "lato",
+    "source": "https://github.com/google/fonts/blob/main/ofl/lato/Lato-Regular.ttf",
+    "variable": false
+  },
+  {
+    "id": "montserrat",
+    "source": "https://github.com/google/fonts/blob/main/ofl/montserrat/Montserrat[wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "nunito",
+    "source": "https://github.com/google/fonts/blob/main/ofl/nunito/Nunito[wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "sourcesans3",
+    "source": "https://github.com/google/fonts/blob/main/ofl/sourcesans3/SourceSans3[wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "merriweather",
+    "source": "https://github.com/google/fonts/blob/main/ofl/merriweather/Merriweather[opsz,wdth,wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "publicsans",
+    "source": "https://github.com/google/fonts/blob/main/ofl/publicsans/PublicSans[wght].ttf",
+    "variable": true
+  },
+  {
+    "id": "lora",
+    "source": "https://github.com/google/fonts/blob/main/ofl/lora/Lora[wght].ttf",
+    "variable": true
+  }
+]

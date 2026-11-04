@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMSYS|Qualidade · Manual do Utilizador</title>
+<style>
+  :root{
+    --roxo:#7367f0; --roxo2:#5e50ee; --roxo-escuro:#3a2f7a;
+    --fundo:#f6f7fb; --branco:#fff; --texto:#2a2a3c; --mut:#6b6b80;
+    --borda:#e3e4ee; --verde:#28c76f; --laranja:#ff9f43; --vermelho:#ea5455;
+    --ciano:#00cfe8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--fundo);color:var(--texto);line-height:1.6}
+  /* --- Topo --- */
+  header{background:linear-gradient(135deg,var(--roxo) 0%,var(--roxo2) 55%,#8b7ff8 100%);color:#fff;padding:3.5rem 1.5rem 3rem;text-align:center}
+  header .logo{font-size:.85rem;letter-spacing:.15em;opacity:.9;margin-bottom:.5rem}
+  header h1{font-size:2.2rem;font-weight:800;margin-bottom:.6rem}
+  header p.sub{max-width:700px;margin:0 auto;opacity:.95;font-size:1.05rem}
+  nav{background:var(--branco);position:sticky;top:0;z-index:50;border-bottom:1px solid var(--borda);box-shadow:0 2px 10px rgba(76,69,157,.06)}
+  nav .inner{max-width:1100px;margin:0 auto;padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem}
+  nav .proto{font-weight:800;color:var(--roxo-escuro);font-size:.95rem;white-space:nowrap}
+  nav .proto span{color:var(--roxo)}
+  .menu-burger{display:none;background:none;border:1px solid var(--borda);border-radius:.5rem;padding:.4rem .7rem;cursor:pointer;color:var(--roxo)}
+  nav .links{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+  nav .links a{color:var(--roxo-escuro);text-decoration:none;font-size:.82rem;font-weight:600;padding:.35rem .7rem;border-radius:.45rem;transition:.15s;white-space:nowrap}
+  nav .links a:hover{background:#f0eeff;color:var(--roxo2)}
+  @media(max-width:760px){
+    .menu-burger{display:block}
+    nav .links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-top:.5rem}
+    nav.open .links{display:flex}
+    nav .links a{padding:.6rem .8rem;border-bottom:1px solid #f0f0f5}
+    nav .links a:hover{background:#f0eeff}
+  }
+  /* Índice visual em tiles */
+  .grid-indice{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:.8rem;margin:1rem 0}
+  .tile{display:flex;flex-direction:column;gap:.45rem;background:#faf9ff;border:1px solid var(--borda);border-radius:.75rem;padding:.9rem 1rem;text-decoration:none;color:var(--texto);transition:.15s;cursor:pointer}
+  .tile:hover{border-color:var(--roxo);background:#fff;box-shadow:0 4px 14px rgba(76,69,157,.12);transform:translateY(-2px)}
+  .tile .t-top{display:flex;align-items:center;gap:.55rem}
+  .tile .t-ico{width:38px;height:38px;border-radius:.6rem;background:#f0eeff;color:var(--roxo2);display:grid;place-items:center;font-size:1.15rem}
+  .tile b{font-size:.9rem;color:var(--roxo-escuro);line-height:1.25}
+  .tile .t-sub{font-size:.75rem;color:var(--mut);line-height:1.35}
+  .tile .t-tag{font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--roxo2)}
+  .sec-group{margin:1.2rem 0 .5rem}
+  .sec-group .g-tit{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+  .sec-group .g-tit::before{content:'';width:18px;height:3px;background:var(--roxo);border-radius:2px}
+  main{max-width:1100px;margin:1.5rem auto;padding:0 1.5rem 4rem}
+  section{background:var(--branco);border:1px solid var(--borda);border-radius:1rem;padding:1.8rem 2rem;margin-bottom:1.8rem;box-shadow:0 2px 8px rgba(76,69,157,.04)}
+  section h2{display:flex;align-items:center;gap:.6rem;font-size:1.35rem;font-weight:800;color:var(--roxo-escuro);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid #eee}
+  section h2 .ico{font-size:1.2rem}
+  h3{font-size:1.05rem;font-weight:700;margin:1.3rem 0 .5rem;color:#3a3a52}
+  p{margin-bottom:.6rem}
+  code{background:#f0eeff;color:var(--roxo-escuro);padding:.1rem .4rem;border-radius:.3rem;font-size:.85em}
+  ul,ol{margin:.4rem 0 .9rem 1.2rem}
+  li{margin-bottom:.35rem}
+  /* Dicas / exemplos */
+  .ex{background:#f8f9ff;border-left:4px solid var(--roxo);border-radius:.4rem;padding:.7rem 1rem;margin:.7rem 0}
+  .ex b{color:var(--roxo-escuro)}
+  .dica{background:#fff9f0;border-left:4px solid var(--laranja);border-radius:.4rem;padding:.7rem 1rem;margin:.7rem 0;font-size:.93rem}
+  .bom{background:#edfbf3;border-left:4px solid var(--verde);border-radius:.4rem;padding:.7rem 1rem;margin:.7rem 0}
+  /* tabelas */
+  table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.92rem}
+  th,td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--borda)}
+  th{background:#f6f7fb;color:var(--roxo-escuro);font-weight:700}
+  tr:hover td{background:#faf9ff}
+  /* badges */
+  .b{display:inline-block;padding:.15rem .55rem;border-radius:.4rem;font-size:.75rem;font-weight:700}
+  .b-p{background:#f0eeff;color:var(--roxo2)} .b-g{background:#e6f9ef;color:#1f9d5a}
+  .b-o{background:#fff2e4;color:#e07b00} .b-r{background:#feecec;color:#e84343}
+  .b-c{background:#e6f9fb;color:#008fa0} .b-gr{background:#eeeef2;color:#55556b}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}main{padding:0 .8rem 3rem}section{padding:1.2rem 1rem}}
+  footer{background:var(--roxo-escuro);color:#d6d3f0;text-align:center;padding:1.5rem;font-size:.85rem}
+  footer b{color:#fff}
+  .kbd{background:#2a2a3c;color:#fff;border-radius:.3rem;padding:.1rem .45rem;font-family:monospace;font-size:.85em}
+  a{color:var(--roxo)}
+  .toc a{display:block;padding:.25rem 0;color:var(--texto);text-decoration:none}
+  .toc a:hover{color:var(--roxo)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SAMSYS · LIFE CYCLE</div>
+  <h1>Manual do Utilizador</h1>
+  <p class="sub">Programa da Qualidade · Programa de Life Cycle RH<br>Guia completo das funcionalidades — tudo o que podes fazer, com exemplos.</p>
+</header>
+
+<nav>
+  <div class="inner">
+    <div class="proto">SAMSYS<span>·</span> Qualidade</div>
+    <button class="menu-burger" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Menu">☰</button>
+    <div class="links">
+      <a href="#qualidade">Qualidade</a>
+      <a href="#ocorrencias">NC/OM</a>
+      <a href="#acoes">Ações</a>
+      <a href="#eficacia">Eficácia</a>
+      <a href="#plano">Plano</a>
+      <a href="#copiloto">Copiloto IA</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#relatorios">Relatórios</a>
+      <a href="#lifecycle">Life Cycle</a>
+      <a href="#candidaturas">Candidaturas</a>
+      <a href="#vagas">Vagas</a>
+      <a href="#cv">CV</a>
+      <a href="#ficha">Ficha</a>
+      <a href="#entrevistas">Entrevistas</a>
+      <a href="#assistente">Assistente</a>
+      <a href="#seguranca">Segurança</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<div class="bom toc" style="font-size:.9rem">
+  <b>Manual completo de todas as funcionalidades</b> — usa o índice abaixo ou pesquisa pelo teu objetivo. Os exemplos refletem o uso real do sistema.
+</div>
+
+<!-- Índice visual agrupado -->
+<div class="sec-group"><div class="g-tit">Módulo da Qualidade</div></div>
+<div class="grid-indice">
+  <a class="tile" href="#qualidade"><div class="t-top"><div class="t-ico">🛡️</div><b>Visão geral</b></div><div class="t-tag">Qualidade</div><div class="t-sub">NC/OM, ciclo de vida, estados</div></a>
+  <a class="tile" href="#ocorrencias"><div class="t-top"><div class="t-ico">⚠️</div><b>Ocorrências</b></div><div class="t-tag">Qualidade</div><div class="t-sub">NC/OM · ficha completa</div></a>
+  <a class="tile" href="#acoes"><div class="t-top"><div class="t-ico">📝</div><b>Ações</b></div><div class="t-tag">Qualidade</div><div class="t-sub">tipos, estados, horas</div></a>
+  <a class="tile" href="#eficacia"><div class="t-top"><div class="t-ico">🎯</div><b>Eficácia</b></div><div class="t-tag">Qualidade</div><div class="t-sub">validação e encerramento</div></a>
+  <a class="tile" href="#plano"><div class="t-top"><div class="t-ico">🗂️</div><b>Plano de Conformidade</b></div><div class="t-tag">Qualidade</div><div class="t-sub">progresso e estados</div></a>
+  <a class="tile" href="#copiloto"><div class="t-top"><div class="t-ico">🤖</div><b>Copiloto IA</b></div><div class="t-tag">IA</div><div class="t-sub">analisar, planos, alertas</div></a>
+  <a class="tile" href="#dashboard"><div class="t-top"><div class="t-ico">📊</div><b>Dashboard</b></div><div class="t-tag">Análise</div><div class="t-sub">métricas e sinas de atenção</div></a>
+  <a class="tile" href="#relatorios"><div class="t-top"><div class="t-ico">📈</div><b>Relatórios</b></div><div class="t-tag">Análise</div><div class="t-sub">exportação, gestão</div></a>
+</div>
+
+<div class="sec-group"><div class="g-tit">Módulo Life Cycle RH</div></div>
+<div class="grid-indice">
+  <a class="tile" href="#lifecycle"><div class="t-top"><div class="t-ico">👤</div><b>Life Cycle RH</b></div><div class="t-tag">Recursos Humanos</div><div class="t-sub">ciclo do colaborador</div></a>
+  <a class="tile" href="#candidaturas"><div class="t-top"><div class="t-ico">📋</div><b>Candidaturas</b></div><div class="t-tag">Recursos Humanos</div><div class="t-sub">pipeline e admissão</div></a>
+  <a class="tile" href="#vagas"><div class="t-top"><div class="t-ico">💼</div><b>Vagas</b></div><div class="t-tag">Recursos Humanos</div><div class="t-sub">criar, editar, fechar</div></a>
+  <a class="tile" href="#cv"><div class="t-top"><div class="t-ico">📄</div><b>Importação de CV</b></div><div class="t-tag">Recursos Humanos</div><div class="t-sub">fila, OCR, validação</div></a>
+  <a class="tile" href="#ficha"><div class="t-top"><div class="t-ico">🧑‍💼</div><b>Ficha do Candidato</b></div><div class="t-tag">Recursos Humanos</div><div class="t-sub">wizard 360° · PDF</div></a>
+  <a class="tile" href="#entrevistas"><div class="t-top"><div class="t-ico">🗓️</div><b>Entrevistas</b></div><div class="t-tag">Recursos Humanos</div><div class="t-sub">agendar e registar</div></a>
+</div>
+
+<div class="sec-group"><div class="g-tit">Suporte</div></div>
+<div class="grid-indice">
+  <a class="tile" href="#assistente"><div class="t-top"><div class="t-ico">💬</div><b>Assistente IA</b></div><div class="t-tag">Suporte</div><div class="t-sub">canais, voz, /help</div></a>
+  <a class="tile" href="#seguranca"><div class="t-top"><div class="t-ico">🔒</div><b>Segurança</b></div><div class="t-tag">Suporte</div><div class="t-sub">permissões, RGPD</div></a>
+</div>
+
+<!-- ==================== QUALIDADE ==================== -->
+<section id="qualidade">
+  <h2><span class="ico">🛡️</span> Programa da Qualidade — visão geral</h2>
+  <p>O módulo de Qualidade gere as <b>Não Conformidades (NC)</b> e <b>Oportunidades de Melhoria (OM)</b> de toda a organização, com um ciclo de vida completo até à recuperação da conformidade. Tudo se interliga: cada ocorrência tem <b>ações</b>, um <b>plano de conformidade</b>, <b>evidências</b>, <b>comentários</b> e <b>histórico auditado</b>.</p>
+  <div class="grid2">
+    <div>
+      <h3>O que podes fazer</h3>
+      <ul>
+        <li>Registar novas NC/OM a partir de qualquer origem (auditoria, reclamação, melhoria…)</li>
+        <li>Acompanhar o estado de cada ocorrência até à validação de eficácia</li>
+        <li>Criar ações e Planos de Conformidade</li>
+        <li>Consultar estatísticas, tendências e relatórios</li>
+        <li>Perguntar ao <b>Copiloto IA</b> em linguagem natural</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Estados de uma ocorrência</h3>
+      <table>
+        <tr><th>Estado</th><th>Significado</th></tr>
+        <tr><td><span class="b b-gr">Aberta</span></td><td>Registada, ainda sem tratamento</td></tr>
+        <tr><td><span class="b b-o">Em curso</span></td><td>Tem ações em execução</td></tr>
+        <tr><td><span class="b b-c">A aguardar eficácia</span></td><td>Ações concluídas, a validar resultado</td></tr>
+        <tr><td><span class="b b-g">Encerrada</span></td><td>Eficácia validada; caso fechado</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="ex"><b>Exemplos:</b> “quantas ocorrências estão em aberto?” · “mostra as NC da área Financeiro” · “resumo para a Direção”</div>
+</section>
+
+<!-- ==================== OCORRENCIAS ==================== -->
+<section id="ocorrencias">
+  <h2><span class="ico">⚠️</span> Ocorrências (NC / OM)</h2>
+  <p>A grelha de ocorrências lista todas as NC/OM com <b>ordenação, paginação, pesquisa e filtros</b> (por estado, tipo, área, origem, responsável e período). Cada ocorrência tem uma ficha completa.</p>
+  <h3>Ficha da ocorrência (separadores)</h3>
+  <table>
+    <tr><th>Separador</th><th>O que contém</th></tr>
+    <tr><td><b>Visão Geral</b></td><td>Descrição e análise de causa</td></tr>
+    <tr><td><b>Plano de Conformidade</b></td><td>Plano ativo, progresso, ações com horas e registo de trabalho</td></tr>
+    <tr><td><b>Plano de Ações</b></td><td>Criar/concluir ações com responsável e prazo</td></tr>
+    <tr><td><b>Evidências</b></td><td>Upload e consulta de anexos</td></tr>
+    <tr><td><b>Eficácia</b></td><td>Validação do resultado (eficaz / não eficaz)</td></tr>
+    <tr><td><b>Comentários</b></td><td>Notas e discussão</td></tr>
+    <tr><td><b>Histórico</b></td><td>Timeline auditada de todas as operações</td></tr>
+  </table>
+  <div class="dica"><b>Encerrar uma NC</b> só é possível quando cumpre as regras: ações concluídas, eficácia validada, evidências presentes. O sistema explica exatamente o que falta — usa o Copiloto “Analisar com IA”.</div>
+  <div class="ex"><b>Exemplos:</b> “abre a NC-2026-0048” · “mostra as ocorrências a aguardar eficácia” · “cria uma nova não conformidade”</div>
+</section>
+
+<!-- ==================== ACOES ==================== -->
+<section id="acoes">
+  <h2><span class="ico">📝</span> Ações</h2>
+  <p>As ações são <b>tarefas operacionais completas</b> ligadas à ocorrência e, quando existe, ao Plano de Conformidade. Cada ação tem estado, responsável, prazo, prioridade, tipo, horas previstas/realizadas, percentagem de execução e registo de trabalho.</p>
+  <h3>Tipos de ação</h3>
+  <p><span class="b b-p">Contenção</span> <span class="b b-o">Corretiva</span> <span class="b b-c">Preventiva</span> <span class="b b-g">Melhoria</span> <span class="b b-p">Formação</span> <span class="b b-o">Alteração documental</span> <span class="b b-c">Alteração de processo</span> <span class="b b-g">Verificação/auditoria</span> <span class="b b-p">Validação de eficácia</span> <span class="b b-gr">Outra</span></p>
+  <h3>Estados de uma ação</h3>
+  <table>
+    <tr><th>Estado</th><th>Significado</th></tr>
+    <tr><td><span class="b b-gr">Pendente (TODO)</span></td><td>Por iniciar</td></tr>
+    <tr><td><span class="b b-o">Em curso (IN_PROGRESS)</span></td><td>A executar</td></tr>
+    <tr><td><span class="b b-r">Bloqueada</span></td><td>Impedida (indica o motivo)</td></tr>
+    <tr><td><span class="b b-c">Em validação</span></td><td>Concluída, a validar resultado</td></tr>
+    <tr><td><span class="b b-g">Concluída</span></td><td>Terminada</td></tr>
+    <tr><td><span class="b b-gr">Cancelada</span></td><td>Anulada</td></tr>
+  </table>
+  <div class="ex"><b>Exemplos:</b> “que ações estão em atraso?” · “ações por responsável” · “na ação AC-2026-0148 regista 2h30 e passa a 60%”</div>
+</section>
+
+<!-- ==================== EFICACIA ==================== -->
+<section id="eficacia">
+  <h2><span class="ico">🎯</span> Validação de Eficácia</h2>
+  <p>Depois de as ações corretivas concluírem, a eficácia deve ser validada antes de encerrar a ocorrência.</p>
+  <ul>
+    <li><b>Eficaz</b> → a ocorrência é encerrada automaticamente.</li>
+    <li><b>Não eficaz</b> → a ocorrência volta a “Em curso” para novas ações.</li>
+  </ul>
+  <div class="bom"><b>Boas práticas:</b> anexa evidência e regista uma nota na validação, para o histórico ficar completo.</div>
+  <div class="ex"><b>Exemplos:</b> “quais as ações concluídas sem validação de eficácia?” · “valida a eficácia da NC-2026-0024”</div>
+</section>
+
+<!-- ==================== PLANO ==================== -->
+<section id="plano">
+  <h2><span class="ico">🗂️</span> Plano de Conformidade</h2>
+  <p>Cada NC pode ter um <b>Plano de Conformidade</b> que organiza as ações para recuperar a conformidade. Pode ter versões/planos complementares.</p>
+  <ul>
+    <li><b>Progresso calculado</b> automaticamente (média ponderada pelo esforço das ações).</li>
+    <li><b>Estado próprio:</b> Rascunho, Proposto, Ativo, Bloqueado, Em validação, Concluído, Cancelado.</li>
+    <li>Atingir 100% <b>não basta</b>: deve existir validação de eficácia quando aplicável.</li>
+  </ul>
+  <div class="dica"><b>Criar com IA:</b> na ficha da ocorrência, o botão “Gerar Plano com IA” propõe um plano com ações e responsáveis — <b>não persiste</b> até confirmares. É o princípio “IA assistiva, nunca decisória”.</div>
+  <div class="ex"><b>Exemplos:</b> “cria uma proposta de plano para resolver esta não conformidade” · “transforma a proposta em ações e atribui as duas primeiras ao Samuel” · “que planos estão bloqueados?”</div>
+</section>
+
+<!-- ==================== COPILOTO ==================== -->
+<section id="copiloto">
+  <h2><span class="ico">🤖</span> Copiloto de Qualidade (IA assistiva)</h2>
+  <p>O Copiloto transforma a consulta em <b>operação controlada</b>: analisa, propõe, e só executa com a tua confirmação. Nada de decisão automática.</p>
+  <h3>Na ficha da ocorrência</h3>
+  <table>
+    <tr><th>Botão</th><th>O que faz</th></tr>
+    <tr><td><span class="b b-p">Analisar com IA</span></td><td>Estado operacional, plano, ações e condições de encerramento (diz o que falta)</td></tr>
+    <tr><td><span class="b b-p">Gerar Plano com IA</span></td><td>Cria uma proposta de Plano de Conformidade (aguarda confirmação)</td></tr>
+  </table>
+  <h3>Análises automáticas</h3>
+  <p>O Copiloto vigia em simultâneo: <b>prazos vencidos</b> e a vencer, <b>dados incompletos</b> (sem responsável/causa), <b>reincidências</b>, <b>responsáveis sobrecarregados</b>, <b>eficácias por validar</b>, <b>registos parados</b>, <b>tendências</b> e <b>riscos</b>.</p>
+  <h3>Alertas inteligentes</h3>
+  <p><span class="b b-c">Ações a vencer em 72h</span> · <span class="b b-o">Ações atrasadas</span> · <span class="b b-r">Registos parados há +30 dias</span> · <span class="b b-g">Eficácia por validar</span></p>
+  <div class="ex"><b>Exemplos:</b> “o que tenho de tratar hoje?” · “há algo urgente?” · “existem problemas repetidos?” · “resume para a Direção” · “posso encerrar esta não conformidade?”</div>
+  <h3>Pesquisa semântica</h3>
+  <p>Encontra <b>NC e medidas semelhantes às já aplicadas</b> a partir de uma descrição — apoio à decisão (a fonte de verdade é sempre a base de dados).</p>
+  <div class="ex"><b>Exemplo:</b> “já tivemos problemas semelhantes com fornecedores?”</div>
+</section>
+
+<!-- ==================== DASHBOARD ==================== -->
+<section id="dashboard">
+  <h2><span class="ico">📊</span> Dashboard</h2>
+  <p>Painel de acompanhamento operacional com:</p>
+  <div class="grid2">
+    <div>
+      <h3>Métricas gerais</h3>
+      <ul>
+        <li>NC/OM em aberto, em curso, a aguardar eficácia, encerradas</li>
+        <li>Ações urgentes e por responsável</li>
+        <li>Evolução ao longo dos meses</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Copiloto (sinais de atenção)</h3>
+      <ul>
+        <li>Ações vencidas · a vencer em 3 dias</li>
+        <li>NCs incompletas · eficácia por validar</li>
+        <li>Paradas +30d · reincidências · NCs sem ação</li>
+        <li>Variação do mês (subida/descida)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RELATORIOS ==================== -->
+<section id="relatorios">
+  <h2><span class="ico">📈</span> Relatórios e Análise</h2>
+  <ul>
+    <li><b>Relatórios</b> de ocorrências, ações e eficácia (com exportação)</li>
+    <li><b>Revisão pela Gestão</b> — resumo executivo periódico</li>
+    <li><b>Assistente IA</b> — conversa interativa sobre os dados</li>
+    <li><b>Análise de tendências e distribuições</b> (por área, origem, mês)</li>
+  </ul>
+  <div class="ex"><b>Exemplos:</b> “mostra a evolução por mês” · “ocorrências por área (ranking)” · “compara este mês com o anterior”</div>
+</section>
+
+<!-- ==================== LIFECYCLE ==================== -->
+<section id="lifecycle">
+  <h2><span class="ico">👤</span> Programas de Life Cycle RH</h2>
+  <p>O Life Cycle RH gere o <b>ciclo de vida do colaborador</b>: da candidatura à admissão, ativação, e offboarding — com controlo de tarefas por fases (P0/B01–B03, A01–A20) e comunicações automáticas (E01–E12).</p>
+  <h3>Abas da página</h3>
+  <table>
+    <tr><th>Aba</th><th>O que contém</th></tr>
+    <tr><td><b>Fila</b></td><td>Candidaturas por estado (Na fila, Em triagem, Entrevista, Selecionado…)</td></tr>
+    <tr><td><b>Vagas</b></td><td>Criar, editar, fechar e eliminar vagas</td></tr>
+    <tr><td><b>Análise</b></td><td>Distribuição por estado/vaga + exportação CSV</td></tr>
+    <tr><td><b>Pool de talento</b></td><td>Candidaturas por estado e tipo</td></tr>
+  </table>
+  <div class="dica">Os indicadores do topo (Em curso, Entrevista, Selecionados, Offboarding, Encerrados) resumem o pipeline.</div>
+</section>
+
+<!-- ==================== CANDIDATURAS ==================== -->
+<section id="candidaturas">
+  <h2><span class="ico">📋</span> Candidaturas</h2>
+  <ul>
+    <li><b>Nova candidatura</b> manual ou <b>Importar CV</b> (preenche a ficha automaticamente)</li>
+    <li>Mudar estado do pipeline com botões rápidos (Triagem / Entrevista / Selecionado…)</li>
+    <li><b>Admissão</b>: definir data de entrada, vínculo, e gerar tarefas A01–A20</li>
+    <li><b>Comunicações E01–E12</b>: registar e acompanhar envios (cartas, emails…) com evidência</li>
+    <li><b>Tarefas livres</b> por candidatura</li>
+    <li><b>RGPD</b>: anonimizar ficha ou apagar caso (direito ao esquecimento)</li>
+  </ul>
+  <div class="ex"><b>Exemplos:</b> “quantas candidaturas estão na fila?” · “em entrevista?” · “detalhes da candidatura LCY-2026-100001”</div>
+</section>
+
+<!-- ==================== VAGAS ==================== -->
+<section id="vagas">
+  <h2><span class="ico">💼</span> Vagas</h2>
+  <table>
+    <tr><th>Ação</th><th>Como</th></tr>
+    <tr><td><b>Criar</b></td><td>Formulário “Nova vaga” (título, departamento, função, tipo, motivo)</td></tr>
+    <tr><td><b>Editar</b></td><td>Botão ✎ — preenche o form e guarda alterações</td></tr>
+    <tr><td><b>Fechar</b></td><td>Encerra a vaga e recusa automaticamente as candidaturas ativas</td></tr>
+    <tr><td><b>Eliminar</b></td><td>Apaga definitivamente (com confirmação)</td></tr>
+  </table>
+  <div class="ex"><b>Exemplos:</b> “lista as vagas abertas” · “em que estado estão as vagas?” · “cria uma vaga de Desenvolvedor”</div>
+</section>
+
+<!-- ==================== CV ==================== -->
+<section id="cv">
+  <h2><span class="ico">📄</span> Importação de CV</h2>
+  <p>Carrega PDFs de CVs e o sistema processa-os em fila (assíncrono, podes fechar a página). O texto é extraído (com <b>OCR</b> para digitalizações), a IA analisa a estrutura e guarda a <b>análise</b> para validação humana.</p>
+  <h3>Fila de processamento</h3>
+  <ul>
+    <li>Card permanente com <b>contagens</b> (ativos / concluídos / erros / cancelados)</li>
+    <li>Ver fila, cancelar, repetir, marcar visto</li>
+    <li>Multi-upload (vários PDFs de uma vez)</li>
+  </ul>
+  <div class="bom"><b>Validação humana:</b> um job concluído abre a ficha pré-preenchida; <b>revês e só depois gravas</b> — a IA nunca liga uma candidatura sozinha. O OCR é anotado na ficha (“texto obtido por OCR”).</div>
+  <div class="dica">Enquanto processa, o nome do ficheiro ativo aparece no card em destaque.</div>
+</section>
+
+<!-- ==================== FICHA ==================== -->
+<section id="ficha">
+  <h2><span class="ico">🧑‍💼</span> Ficha do Candidato (Wizard 360°)</h2>
+  <p>O botão <b>Ficha</b> no detalhe abre a ficha completa em ecrã inteiro, com gravação automática e preenchimento a partir do CV (o máximo de informação do CV é espelhado na ficha).</p>
+  <h3>Etapas</h3>
+  <ol>
+    <li><b>Dados pessoais</b> — nome, nascimento, nacionalidade, morada, autorização, carta de condução</li>
+    <li><b>Contactos</b> — email, telefone, LinkedIn, GitHub, portefólio, website</li>
+    <li><b>Perfil profissional</b> — resumo, competências, áreas</li>
+    <li><b>Experiência e formação</b> — registos repetíveis</li>
+    <li><b>Competências, idiomas, certificações e projetos</b></li>
+    <li><b>Pré-visualização</b> — vista como CV, com versão <b>anonimizada (RGPD)</b></li>
+  </ol>
+  <h3>Exportar PDF</h3>
+  <p>Botão <b>CV / PDF</b>: pré-visualização profissional em documento, com escolha de secções e <b>exportação PDF</b> (via impressão nativa do browser). Três versões: completa, anonimizada, sem notas internas.</p>
+  <div class="ex"><b>Exemplos:</b> “abre a ficha do Júlio” · “exporta o CV da Sofia em PDF”</div>
+</section>
+
+<!-- ==================== ENTREVISTAS ==================== -->
+<section id="entrevistas">
+  <h2><span class="ico">🗓️</span> Entrevistas</h2>
+  <ul>
+    <li>Agendar e registar <b>entrevistas</b> por candidato (tipo, data, duração, local/ligação, entrevistadores)</li>
+    <li><b>Critérios</b> com classificação, guia e parecer (favorável/neutro/desfavorável)</li>
+    <li><b>Notas privadas</b> nunca enviadas à IA</li>
+    <li>Próximos passos registados</li>
+  </ul>
+  <div class="ex"><b>Exemplo:</b> “agenda uma entrevista para a candidatura LCY-2026-100001”</div>
+</section>
+
+<!-- ==================== ASSISTENTE IA ==================== -->
+<section id="assistente">
+  <h2><span class="ico">💬</span> Assistente IA (canais e página)</h2>
+  <p>O assistente responde em <b>linguagem natural</b> sobre Qualidade e Life Cycle. Disponível na página web (com conversa que se retoma ao voltar) e nos canais (Telegram/Slack, incl. mensagens de <b>voz</b>).</p>
+  <h3>Comandos</h3>
+  <ul>
+    <li><span class="kbd">/help</span> ou “ajuda” → manual do utilizador interativo</li>
+    <li><span class="kbd">/link código</span> → ligar o canal à tua conta</li>
+    <li><span class="kbd">/sair</span> → desligar o canal</li>
+  </ul>
+  <h3>Dicas</h3>
+  <ul>
+    <li>diz <b>“em tabela”</b> → recebes os dados em grelha</li>
+    <li>diz <b>“todas”</b> → lista completa (até 50)</li>
+    <li><b>Seguimento:</b> “mostra a lista”, “resume essas”, “e do Joaquim?” reutilizam o contexto anterior</li>
+    <li>novo tema → basta escrever (contexto expira após 30 min)</li>
+  </ul>
+  <div class="ex"><b>Exemplos:</b> “quantas ocorrências estão abertas?” · “resume para a Direção” · “quem tem mais ações pendentes? (Joaquim)”</div>
+</section>
+
+<!-- ==================== SEGURANCA ==================== -->
+<section id="seguranca">
+  <h2><span class="ico">🔒</span> Segurança e boas práticas</h2>
+  <ul>
+    <li><b>IA assistiva, nunca decisória</b> — cria ações, encerra NC ou reatribui somente após a tua confirmação explícita.</li>
+    <li><b>Permissões respeitadas</b> em todas as consultas (empresa, perfil, área) — nunca apresentamos dados fora das tuas autorizações.</li>
+    <li><b>Auditoria completa</b> — todas as operações relevantes ficam registadas (quem, o quê, quando), incluindo intervenções da IA e quem as aprovou.</li>
+    <li><b>Dados como dados</b> — descrições e evidências são tratadas como conteúdo, nunca como instruções para o sistema.</li>
+    <li><b>RGPD</b> — vista anonimizada de ficha/CV e ações de direito ao esquecimento.</li>
+    <li><b>Dados sensíveis</b> (idade, sexo, origem étnica…) nunca são usados como critério pelo Copiloto.</li>
+  </ul>
+  <div class="bom"><b>Regra de ouro:</b> se não houver dados suficientes, o sistema diz o que falta — nunca inventa ocorrências, valores, responsáveis ou prazos.</div>
+</section>
+
+</main>
+
+<footer>
+  <b>SAMSYS|Qualidade · Life Cycle</b> — Manual do Utilizador<br>
+  Documento autónomo servido diretamente pelo servidor · Consulte também o <span class="kbd">/help</span> no Assistente IA.
+</footer>
+
+</body>
+</html>

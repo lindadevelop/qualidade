@@ -1,0 +1,45 @@
+node_modules/
+.env
+dist/
+pgdata/
+pgportable/
+pg.zip
+pg.log
+
+# tuning cloudflare (gerado pelo tunnel.sh)
+.tunnel/
+frontend/.env.local-backup
+backend/data/
+backend/generated-pptx/
+backend/keep-alive.log
+backup/
+backups/
+pg-test.log
+import/
+
+# Candidate build for isolated v2.5 validation
+frontend/dist-v25/
+frontend/dist-operational/
+
+# Local-only files and secrets
+.env
+.env.*
+!.env.example
+*.env
+!*.env.example
+*.log
+*.zip
+*.sqlite*
+*.db
+*.pem
+*.key
+postgrest.conf
+supabase_local_keys.env
+.publish/
+codex-remote/
+ProjetoTeste/
+__pycache__/
+
+# Generated operational reports (not application source)
+docs/**/*.json
+!docs/apresentacao_produto_spec.json
